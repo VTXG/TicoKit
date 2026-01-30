@@ -1,0 +1,2 @@
+# Hotswapping
+TicoKit adds the ability to hotswap archives, which allows you to load a different archive for a specified file path. This allows, for example, to have stage or scenario specific model changes for an enemy.

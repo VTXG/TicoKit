@@ -1,0 +1,14 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+###############################################################################
+# Set the encoding to SHIFT-JIS
+###############################################################################
+*.arc=binary
+
+*.h   text diff=cpp encoding=cp1252
+*.hpp text diff=cpp encoding=cp1252
+*.c   text diff=cpp encoding=cp1252
+*.cpp text diff=cpp encoding=cp1252

@@ -1,0 +1,212 @@
+{
+    "dynamicsBlock": {
+        "VolumeType": 1,
+        "FixedDensity": false,
+        "FixedInterval": false,
+        "InheritScale": false,
+        "FollowEmitter": false,
+        "FollowEmitterChild": false,
+        "Unknown": "00200000",
+        "EmitterScaleX": 1.0,
+        "EmitterScaleY": 1.0,
+        "EmitterScaleZ": 1.0,
+        "EmitterTranslationX": 0.0,
+        "EmitterTranslationY": 116.0,
+        "EmitterTranslationZ": 0.0,
+        "EmitterDirectionX": 0.0,
+        "EmitterDirectionY": 32767.0,
+        "EmitterDirectionZ": 0.0,
+        "InitialVelocityOmni": 1.5,
+        "InitialVelocityAxis": 0.0,
+        "InitialVelocityRandom": 1.0,
+        "InitialVelocityDirection": 0.0,
+        "Spread": 0.0,
+        "InitialVelocityRatio": 0.3499999940395355,
+        "Rate": 0.05000000074505806,
+        "RateRandom": 0.19999998807907104,
+        "LifetimeRandom": 0.3499999940395355,
+        "VolumeSweep": 1.0,
+        "VolumeMinimumRadius": 0.699999988079071,
+        "AirResistance": 0.9949999451637268,
+        "MomentRandom": 0.14999999105930328,
+        "EmitterRotationXDeg": 0,
+        "EmitterRotationYDeg": 0,
+        "EmitterRotationZDeg": 0,
+        "MaxFrame": 0,
+        "StartFrame": 0,
+        "Lifetime": 40,
+        "VolumeSize": 130,
+        "DivisionNumber": 5,
+        "RateStep": 0,
+        "BinaryDataDONOTEDIT": "00000100002000003f8000003f8000003f8000000000000042e80000000000000000000046fffe00000000003fc00000000000003f80000000000000000000003eb333333d4ccccd3e4ccccc3eb333333f8000003f3333333f7eb8513e1999990000000000000000000000280082000500000000"
+    },
+    "baseShape": {
+        "ShapeType": 2,
+        "DirectionType": 0,
+        "RotationType": 0,
+        "PlaneType": 0,
+        "FlagsUnk11": true,
+        "IsGlobalColorAnimation": false,
+        "FlagsUnk13": false,
+        "IsGlobalTextureAnimation": false,
+        "ColorInSelect": 3,
+        "AlphaInSelect": 0,
+        "IsEnableProjection": false,
+        "IsDrawForwardAhead": false,
+        "IsDrawPrintAhead": false,
+        "FlagsUnk23": true,
+        "IsEnableTexScrollAnim": false,
+        "DoubleTilingS": false,
+        "DoubleTilingT": false,
+        "IsNoDrawParent": false,
+        "IsNoDrawChild": false,
+        "BaseSizeX": 1.7999999523162842,
+        "BaseSizeY": 1.7999999523162842,
+        "BlendMode": 1,
+        "SourceFactor": 6,
+        "DestinationFactor": 7,
+        "BlendModeFlagsUnk10": true,
+        "BlendModeFlagsUnk14": true,
+        "AlphaCompareType0": 7,
+        "AlphaOperator": 0,
+        "AlphaCompareType1": 7,
+        "AlphaReference0": 0,
+        "AlphaReference1": 0,
+        "DepthTest": true,
+        "DepthCompareType": 2,
+        "DepthWrite": false,
+        "ZModeFlagsUnk5": 1,
+        "IsEnableTexAnim": false,
+        "TexFlagsUnk1": true,
+        "TexCalcIndexType": 1,
+        "TextureIndex": 0,
+        "ColorFlagsUnk0": true,
+        "IsPrimaryColorAnimEnabled": true,
+        "ColorFlagsUnk2": true,
+        "IsEnvironmentColorAnimEnabled": true,
+        "ColorCalcIndexType": 1,
+        "ColorAnimationMaxFrame": 11,
+        "PrimaryColor": "ffff95ff",
+        "EnvironmentColor": "a0ffffff",
+        "AnimationRandom": 255,
+        "ColorLoopOffsetMask": 255,
+        "TextureIndexLoopOffsetMask": 0,
+        "BinaryDataDONOTEDIT": "00818802003400583fe666663fe6666645d9e70000250600001f060c000bffff95ffa0ffffffffff000000000000ffffffff0001ffff80ff0002ffc864ff0009ffdc80ff000afff0c8ff000bffffffff0000ffc8a0ff0001ffc7a0ff0002ffffa0ff0003ffffa0ff0004ffa0a0ff0005ffa0a0ff0006ffffa0ff0007ffffa0ff0008d2ffa0ff0009d2ffa0ff000affc8a0ff000bffc8a0ff",
+        "TextureIndexAnimData": [],
+        "EnvironmentColorKeyframes": [
+            {
+                "Frame": 0,
+                "Color": "ffc8a0ff"
+            },
+            {
+                "Frame": 1,
+                "Color": "ffc7a0ff"
+            },
+            {
+                "Frame": 2,
+                "Color": "ffffa0ff"
+            },
+            {
+                "Frame": 3,
+                "Color": "ffffa0ff"
+            },
+            {
+                "Frame": 4,
+                "Color": "ffa0a0ff"
+            },
+            {
+                "Frame": 5,
+                "Color": "ffa0a0ff"
+            },
+            {
+                "Frame": 6,
+                "Color": "ffffa0ff"
+            },
+            {
+                "Frame": 7,
+                "Color": "ffffa0ff"
+            },
+            {
+                "Frame": 8,
+                "Color": "d2ffa0ff"
+            },
+            {
+                "Frame": 9,
+                "Color": "d2ffa0ff"
+            },
+            {
+                "Frame": 10,
+                "Color": "ffc8a0ff"
+            },
+            {
+                "Frame": 11,
+                "Color": "ffc8a0ff"
+            }
+        ],
+        "PrimaryColorKeyframes": [
+            {
+                "Frame": 0,
+                "Color": "ffffffff"
+            },
+            {
+                "Frame": 1,
+                "Color": "ffff80ff"
+            },
+            {
+                "Frame": 2,
+                "Color": "ffc864ff"
+            },
+            {
+                "Frame": 9,
+                "Color": "ffdc80ff"
+            },
+            {
+                "Frame": 10,
+                "Color": "fff0c8ff"
+            },
+            {
+                "Frame": 11,
+                "Color": "ffffffff"
+            }
+        ]
+    },
+    "extraShape": {
+        "IsEnableScale": true,
+        "IsDiffXY": false,
+        "FlagsUnk2": false,
+        "FlagsUnk3": false,
+        "ScaleAnimTypeX": 0,
+        "ScaleAnimTypeY": 0,
+        "PivotX": 1,
+        "PivotY": 1,
+        "IsEnableAlpha": true,
+        "IsEnableSinWave": false,
+        "IsEnableRotate": true,
+        "ScaleInTiming": 0.0,
+        "ScaleOutTiming": 0.3391000032424927,
+        "ScaleInValueX": 1.0,
+        "ScaleOutValueX": 0.09999999403953552,
+        "ScaleInValueY": 1.0,
+        "ScaleOutValueY": 0.09999999403953552,
+        "ScaleOutRandom": 0.5,
+        "ScaleAnimationXMaxFrame": 30,
+        "ScaleAnimationYMaxFrame": 30,
+        "AlphaInTiming": 0.0,
+        "AlphaOutTiming": 0.9246000051498413,
+        "AlphaInValue": 0.0,
+        "AlphaBaseValue": 1.0,
+        "AlphaOutValue": 0.0,
+        "AlphaWaveFrequency": 0.0,
+        "AlphaWaveRandom": 0.0,
+        "AlphaWaveAmplitude": 0.0,
+        "RotateAngle": 24576.0,
+        "RotateAngleRandom": 0.0,
+        "RotateSpeed": 491.5199890136719,
+        "RotateSpeedRandom": 0.0,
+        "RotateDirection": 0.0,
+        "BinaryDataDONOTEDIT": "01015001000000003ead9e843f8000003dcccccc3f8000003dcccccc3f000000001e001e000000003f6cb296000000003f8000000000000000000000000000000000000046c000000000000043f5c28f0000000000000000"
+    },
+    "textures": [
+        "mr_kirakira00_ia"
+    ]
+}
