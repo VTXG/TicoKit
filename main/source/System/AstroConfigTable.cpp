@@ -3,6 +3,7 @@
 #include "Util/JMapProperty.hpp"
 
 #include "Game/AudioLib/AudSoundNameConverter.hpp"
+#include "Game/AudioLib/AudWrap.hpp"
 #include "Game/MapObj/AstroDomeOrbit.hpp"
 #include "Game/Util/SceneUtil.hpp"
 
@@ -135,6 +136,11 @@ namespace {
 extern kmSymbol getKoopaFortressAppearBgm__15AudStageBgmWrapFPCc;
 kmCall(&getKoopaFortressAppearBgm__15AudStageBgmWrapFPCc + 0x38, getKoopaFortressBgmId);
 kmWrite32(&getKoopaFortressAppearBgm__15AudStageBgmWrapFPCc + 0x3C, PPC_MR(0, 3)); // mr r0, r3
+
+extern kmSymbol exeOpen__15MiniatureGalaxyFv;
+kmCall(&exeOpen__15MiniatureGalaxyFv + 0x1B0, getKoopaFortressBgmId);
+kmWrite32(&exeOpen__15MiniatureGalaxyFv + 0x1B4, PPC_LI(4, 0));
+kmCall(&exeOpen__15MiniatureGalaxyFv + 0x1B8, AudWrap::startStageBgm);
 
 extern kmSymbol draw__14AstroDomeOrbitCFv;
 kmCall(&draw__14AstroDomeOrbitCFv + 0x28, drawOrbit);
