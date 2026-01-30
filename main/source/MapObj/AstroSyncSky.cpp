@@ -66,5 +66,5 @@ namespace {
     }
 }
 
-extern kmSymbol init__12AstroDomeSkyFRC12JMapInfoIter;
-kmBranch(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x120, updateLastDomeNo);
+extern kmSymbol init__9GameSceneFv;
+kmBranch(&init__9GameSceneFv + 0x1F4, updateLastDomeNo);
