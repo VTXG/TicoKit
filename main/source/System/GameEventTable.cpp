@@ -98,12 +98,24 @@ void GameEventTable::initFlagTable(void *pResource) {
         for (s32 i = 0; i < LIST_COUNT(cTypeNameTable); i++) {
             if (MR::isEqualString(pTypeName, cTypeNameTable[i])) {
                 type = i;
+                break;
             }
         }
 
         if (type == -1) {
-            OSReport("GameEventTable : Invalid event flag type '%s'\n", pTypeName);
-            type = 0;
+            if (MR::isEqualString(pTypeName, "StarPiece")) {
+                type = 8;
+            }
+            else if (MR::isEqualString(pTypeName, "EventValueIsZero")) {
+                type = 9;
+            }
+            else if (MR::isEqualString(pTypeName, "FlagAndStoryEvent")) {
+                type = 11;
+            }
+            else {
+                OSReport("GameEventTable : Invalid event flag type '%s'\n", pTypeName);
+                type = 0;
+            }
         }
 
         pFlag->mType = type;

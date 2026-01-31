@@ -1,5 +1,7 @@
 # SpinSwitchArea
 An area that activates a switch once the player spins inside of it.
+
+## Names
 - `SpinSwitchCube` (Center-origin cube shape)
 
 ## Arguments
