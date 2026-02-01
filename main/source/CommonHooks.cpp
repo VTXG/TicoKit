@@ -1,4 +1,5 @@
 #include "TicoKit.h"
+#include "Player/MarioConstLoader.hpp"
 #include "System/AstroConfigTable.hpp"
 #include "System/GalaxyInfoTable.hpp"
 #include "System/GameConfigTable.hpp"
@@ -20,6 +21,7 @@ namespace {
         TK::initSingleton<GalaxyInfoTable>();
         TK::initSingleton<GameConfigTable>();
         TK::initSingleton<GameEventTable>();
+        MarioConstLoader::init();
 
         pGameSystem->initAfterStationedResourceLoaded();
     }

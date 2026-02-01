@@ -1,5 +1,5 @@
 # ForceMorphArea
-An area that forces the player to enter a specific power-up state.
+An area which can turn the player into any power-up in the game. It can also be used to get rid of a Power-Up.
 
 ## Names
 - `ForceMorphCube` (Center-origin cube shape)

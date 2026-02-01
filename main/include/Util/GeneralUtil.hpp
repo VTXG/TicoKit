@@ -47,12 +47,6 @@ namespace TK {
         return (JKRArchive *)MR::receiveArchive(pFile);
     }
 
-    // /// @brief Deletes a file from memory.
-    // /// @param pFile Path to the file.
-    // inline void removeFile(const char *pFile) {
-    //     return SingletonHolder<FileLoader>::get()->removeFile(pFile);
-    // }
-
     // ---------- Memory Utils ---------- //
     inline JKRHeap* getFileCacheHeap() {
         return SingletonHolder<HeapMemoryWatcher>::get()->mFileCacheHeap;
