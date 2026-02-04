@@ -50,7 +50,7 @@ const char* AstroSyncSky::getSkyName() {
         entryNo = 1;
     }
 
-    return TK::getSingleton<AstroConfigTable>()->getEntry(entryNo)->mSkyName;
+    return TK::getAstroSkyName(entryNo);
 }
 
 namespace {

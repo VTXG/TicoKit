@@ -18,7 +18,7 @@ const JMapPropertyIter JMapPropertyInfo::find(const char *pName) const {
         }
     }
 
-    return JMapPropertyIter(nullptr, 0);
+    return JMapPropertyIter(nullptr, -1);
 }
 
 bool JMapPropertyInfo::getParamInt(int entryIdx, int paramIdx, s32 *pOut) const {

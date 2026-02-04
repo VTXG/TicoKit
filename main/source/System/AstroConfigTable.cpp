@@ -1,10 +1,8 @@
 #include "System/AstroConfigTable.hpp"
 #include "Util/GeneralUtil.hpp"
-#include "Util/JMapProperty.hpp"
 
 #include "Game/AudioLib/AudSoundNameConverter.hpp"
 #include "Game/AudioLib/AudWrap.hpp"
-#include "Game/MapObj/AstroDomeOrbit.hpp"
 #include "Game/Util/SceneUtil.hpp"
 
 AstroConfigTable::AstroConfigTable() {
@@ -13,113 +11,142 @@ AstroConfigTable::AstroConfigTable() {
     for (s32 i = 0; i < 6; i++) {
         char name[32];
         snprintf(name, sizeof(name), "astroconfig%d.bcsv", i + 1);
-        loadEntry(pArchive->getResource(name), &mEntries[i]);
+        mTables[i].attach(pArchive->getResource(name));
     }
 
     OSDebug("AstroConfigTable : Loaded all entries\n");
 }
 
-const AstroConfigEntry* AstroConfigTable::getCurrentEntry() {
-    return &mEntries[MR::getCurrentScenarioNo() - 1];
+bool AstroConfigTable::getOrbitColor(s32 scenarioNo, Color8 *pColor) {
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find("OrbitColor");
+
+    if (iter.isValid()) {
+        s32 r, g, b;
+        iter.getParamInt(0, &r);
+        iter.getParamInt(1, &g);
+        iter.getParamInt(2, &b);
+        pColor->r = r; pColor->g = g; pColor->b = b;
+        pColor->a = 0xFF;
+        return true;
+    }
+
+    return false;
 }
 
-const AstroConfigEntry* AstroConfigTable::getEntry(s32 scenarioNo) {
-    return &mEntries[scenarioNo - 1];
+bool AstroConfigTable::getOrbitColorBloom(s32 scenarioNo, Color8 *pColor) {
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find("OrbitColorBloom");
+
+    if (iter.isValid()) {
+        s32 r, g, b;
+        iter.getParamInt(0, &r);
+        iter.getParamInt(1, &g);
+        iter.getParamInt(2, &b);
+        pColor->r = r; pColor->g = g; pColor->b = b;
+        pColor->a = 0xFF;
+        return true;
+    }
+
+    return false;
 }
 
-void AstroConfigTable::loadEntry(void *pResource, AstroConfigEntry *pEntry) {
-    JMapPropertyInfo info;
-    info.attach(pResource);
+f32 AstroConfigTable::getOrbitRadius(s32 scenarioNo, s32 idx) {
+    char name[32];
+    snprintf(name, sizeof(name), "OrbitSetup%d", idx);
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find(name);
 
-    JMapPropertyIter iter = info.find("OrbitColor");
-    for (s32 i = 0; i < LIST_COUNT(pEntry->mOrbitColor); i++) {
-        s32 tmp;
-
-        iter.getParamInt(i, &tmp);
-        pEntry->mOrbitColor[i] = tmp;
+    if (iter.isValid()) {
+        s32 out;
+        iter.getParamInt(0, &out);
+        return (f32)out;
     }
 
-    iter = info.find("OrbitColorBloom");
-    for (s32 i = 0; i < LIST_COUNT(pEntry->mOrbitColor); i++) {
-        s32 tmp;
+    return 0.0f;
+}
 
-        iter.getParamInt(i, &tmp);
-        pEntry->mOrbitColorBloom[i] = tmp;
+bool AstroConfigTable::getOrbitRotation(s32 scenarioNo, s32 idx, TVec3f *pVec) {
+    char name[32];
+    snprintf(name, sizeof(name), "OrbitSetup%d", idx);
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find(name);
+
+    if (iter.isValid()) {
+        iter.getParamF32(0, &pVec->x);
+        iter.getParamF32(1, &pVec->y);
+        iter.getParamF32(2, &pVec->z);
+        return true;
     }
 
-    for (s32 i = 0; i < 5; i++) {
-        char name[64];
-        snprintf(name, sizeof(name), "OrbitSetup%d", i);
+    return false;
+}
 
-        iter = info.find(name);
-        if (!iter.isValid()) {
-            break;
-        }
+f32 AstroConfigTable::getOrbitSpeed(s32 scenarioNo) {
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find("OrbitSpeed");
 
-        s32 tmp;
-        iter.getParamInt(0, &tmp);
-        pEntry->mOrbitSetup[i].mRadius = tmp;
-
-        iter.getParamF32(0, &pEntry->mOrbitSetup[i].mRotation.x);
-        iter.getParamF32(1, &pEntry->mOrbitSetup[i].mRotation.y);
-        iter.getParamF32(2, &pEntry->mOrbitSetup[i].mRotation.z);
+    if (iter.isValid()) {
+        f32 out;
+        iter.getParamF32(0, &out);
+        return out;
     }
 
-    iter = info.find("OrbitSpeed");
-    iter.getParamF32(0, &pEntry->mOrbitSpeed);
+    return nullptr;
+}
 
-    iter = info.find("SkyName");
-    iter.getParamStr(0, &pEntry->mSkyName);
+const char* AstroConfigTable::getSkyName(s32 scenarioNo) {
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find("SkyName");
 
-    const char *pBgmName;
-    iter = info.find("KoopaFortressBgm");
-    iter.getParamStr(0, &pBgmName);
+    if (iter.isValid()) {
+        const char *pOut;
+        iter.getParamStr(0, &pOut);
+        return pOut;
+    }
 
-    pEntry->mKoopaFortressBgmId = AudSingletonHolder<AudSoundNameConverter>::get()->getSoundID(pBgmName).mID;
+    return nullptr;
+}
+
+u32 AstroConfigTable::getKoopaFortressBgmId(s32 scenarioNo) {
+    JMapPropertyIter iter = mTables[scenarioNo - 1].find("KoopaFortressBgm");
+
+    if (iter.isValid()) {
+        const char *pName;
+        iter.getParamStr(0, &pName);
+        return AudSingletonHolder<AudSoundNameConverter>::get()->getSoundID(pName).mID;
+    }
+
+    return nullptr;
+}
+
+namespace TK {
+    const char* getAstroSkyName(s32 scenarioNo) {
+        return TK::getSingleton<AstroConfigTable>()->getSkyName(scenarioNo);
+    }
 }
 
 namespace {
     u32 getKoopaFortressBgmId() {
-        return TK::getSingleton<AstroConfigTable>()->getCurrentEntry()->mKoopaFortressBgmId;
+        return TK::getSingleton<AstroConfigTable>()->getKoopaFortressBgmId(MR::getCurrentScenarioNo());
     }
 
-    void drawOrbit(AstroDomeOrbit *pOrbit) {
-        const AstroConfigEntry *pEntry = TK::getSingleton<AstroConfigTable>()->getCurrentEntry();
-
-        Color8 color;
-        color.r = pEntry->mOrbitColor[0];
-        color.g = pEntry->mOrbitColor[1];
-        color.b = pEntry->mOrbitColor[2];
-        color.a = 0xFF;
-        pOrbit->initDraw(color);
+    void drawOrbit(ExtAstroDomeOrbit *pOrbit) {
+        pOrbit->initDraw(pOrbit->mColor);
     }
 
-    void drawOrbitBloom(AstroDomeOrbit *pOrbit) {
-        const AstroConfigEntry *pEntry = TK::getSingleton<AstroConfigTable>()->getCurrentEntry();
-
-        Color8 color;
-        color.r = pEntry->mOrbitColorBloom[0];
-        color.g = pEntry->mOrbitColorBloom[1];
-        color.b = pEntry->mOrbitColorBloom[2];
-        color.a = 0xFF;
-        pOrbit->initDraw(color);
+    void drawOrbitBloom(ExtAstroDomeOrbit *pOrbit) {
+        pOrbit->initDraw(pOrbit->mColorBloom);
     }
 
-    void setupOrbit(AstroDomeOrbit *pOrbit, s32 idx) {
-        const AstroConfigEntry *pEntry = TK::getSingleton<AstroConfigTable>()->getCurrentEntry();
+    void setupOrbit(ExtAstroDomeOrbit *pOrbit, s32 idx) {
+        AstroConfigTable *pTable = TK::getSingleton<AstroConfigTable>();
+        s32 scenarioNo = MR::getCurrentScenarioNo();
 
-        pOrbit->_8C = pEntry->mOrbitSetup[idx].mRadius;
+        pTable->getOrbitColor(scenarioNo, &pOrbit->mColor);
+        pTable->getOrbitColorBloom(scenarioNo, &pOrbit->mColorBloom);
+        pTable->getOrbitRotation(scenarioNo, idx, &pOrbit->mRotation);
+        pOrbit->_8C = pTable->getOrbitRadius(scenarioNo, idx);
         pOrbit->_90 = 230.0f * idx;
-        pOrbit->mRotation.set(pEntry->mOrbitSetup[idx].mRotation);
+        pOrbit->mOrbitSpeed = pTable->getOrbitSpeed(scenarioNo);
     }
 
-    void moveCoord(AstroDomeOrbit *pOrbit) {
-        const AstroConfigEntry *pEntry = TK::getSingleton<AstroConfigTable>()->getCurrentEntry();
-        pOrbit->_90 = pOrbit->calcRepeatedRotateCoord(pOrbit->_90 + pEntry->mOrbitSpeed);
-    }
-
-    const char* getSkyName(s32 scenarioNo) {
-        return TK::getSingleton<AstroConfigTable>()->getEntry(scenarioNo)->mSkyName;
+    void moveCoord(ExtAstroDomeOrbit *pOrbit) {
+        pOrbit->_90 = pOrbit->calcRepeatedRotateCoord(pOrbit->_90 + pOrbit->mOrbitSpeed);
     }
 
     const char* getSkyNameForAstroList() {
@@ -129,9 +156,12 @@ namespace {
             mr scenarioNo, r29
         }
 #endif
-        return getSkyName(scenarioNo);
+        return TK::getAstroSkyName(scenarioNo);
     }
 }
+
+extern kmSymbol init__15MiniatureGalaxyFRC12JMapInfoIter;
+kmWrite16(&init__15MiniatureGalaxyFRC12JMapInfoIter + 0x176, sizeof(ExtAstroDomeOrbit));
 
 extern kmSymbol getKoopaFortressAppearBgm__15AudStageBgmWrapFPCc;
 kmCall(&getKoopaFortressAppearBgm__15AudStageBgmWrapFPCc + 0x38, getKoopaFortressBgmId);
@@ -160,7 +190,7 @@ kmWrite32(&getModelName__19AstroMapObjFunctionFPCcl + 0x58, PPC_B(0x54));
 
 extern kmSymbol init__12AstroDomeSkyFRC12JMapInfoIter;
 kmWrite32(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x38, PPC_LWZ(3, 8, 1)); // lwz r3, 8(r1)
-kmCall(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x3C, getSkyName);
+kmCall(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x3C, TK::getAstroSkyName);
 kmWrite32(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x40, PPC_MR(4, 3)); // mr r4, r3
 kmWrite32(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x48, PPC_MR(3, 28)); // mr r3, r28
 kmWrite32(&init__12AstroDomeSkyFRC12JMapInfoIter + 0x50, PPC_MR(30, 4)); // mr r30, r4
