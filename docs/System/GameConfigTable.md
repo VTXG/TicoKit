@@ -16,7 +16,7 @@ This table, found in `ObjectData/GameConfigTable.arc/GameConfigTable.bcsv`, cont
 |`Bgm::MorphFlying`           |Sets the Red Star's music.|`Param00Str`: Sound label.
 |`Bgm::StageIntro`            |Sets the default stage intro cutscene music.|`Param00Str`: Sound label.
 |`Bgm::StageIntro[GalaxyName]`|Sets a stage's intro cutscene music.|`Param00Str`: Sound label.
-|`File::AppearLuigi`          |If defined, makes the "Switch Players" button always appear.|None.
+|`File::AppearLuigi`          |If defined, makes the "Switch Players" button always appear.|`Param00Int`: Condition type (0 for an event flag, 1 for a story event).<br>`Param01Int`: Default value, if no condition name is specified.<br>`Param00Str`: Condition name.
 |`Player::SwingPermission`    |Defines a custom condition for unlocking spin attacks.|`Param00Int`: Condition type (0 for an event flag, 1 for a story event).<br>`Param01Int`: Default value, if no condition name is specified.<br>`Param00Str`: Condition name.
 |`Sky::FileSelect`            |Sets what model to use as the file select sky.|`Param00Str`: Model name.
 

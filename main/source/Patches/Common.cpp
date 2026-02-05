@@ -141,6 +141,9 @@ kmWrite32(0x80359D48, PPC_B(0x14));
 kmWrite32(0x80359F34, PPC_B(0x14));
 kmWrite32(0x8035A8AC, PPC_B(0x14));
 kmWrite32(0x8035AA18, PPC_BLR);
+
+// Use normal text colors
+kmWrite32(0x803509B0, PPC_B(0x10));
 #endif
 
 /*

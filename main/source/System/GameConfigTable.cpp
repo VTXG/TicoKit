@@ -6,6 +6,7 @@
 #include "Local/Game/Util/LiveActorUtil.hpp"
 #include "Game/MapObj/AstroDomeOrbit.hpp"
 #include "Game/System/GameDataFunction.hpp"
+#include "Game/System/GameDataHolder.hpp"
 #include "Game/System/UserFile.hpp"
 #include "Game/Util/SoundUtil.hpp"
 
@@ -51,8 +52,8 @@ public:
 
 namespace {
     namespace Util {
-        bool isOnGameCondition(s32 type, const char *pName) {
-            return type == 0 ? GameDataFunction::isOnGameEventFlag(pName) : GameDataFunction::isPassedStoryEvent(pName);
+        bool isOnGameCondition(GameDataHolder *pData, s32 type, const char *pName) {
+            return type == 0 ? pData->isOnGameEventFlag(pName) : pData->isPassedStoryEvent(pName);
         }
     }
 
@@ -133,7 +134,7 @@ namespace {
             }
 
             const char *pName = property.mParamStr[0];
-            return pName ? Util::isOnGameCondition(property.mParamInt[0], pName) : property.mParamInt[1];
+            return pName ? Util::isOnGameCondition(pFile->mGameDataHolder, property.mParamInt[0], pName) : property.mParamInt[1];
         }
     }
 
@@ -146,7 +147,7 @@ namespace {
             }
 
             pName = property.mParamStr[0];
-            return pName ? Util::isOnGameCondition(property.mParamInt[0], pName) : property.mParamInt[1];
+            return pName ? Util::isOnGameCondition(GameDataFunction::getCurrentGameDataHolder(), property.mParamInt[0], pName) : property.mParamInt[1];
         }
     }
 
@@ -203,6 +204,9 @@ kmWrite32(&startBossBGM__2MRFl + 0x140, PPC_B(0x14));
 extern kmSymbol isUserFileAppearLuigi__12FileSelectorCFl;
 kmCall(&isUserFileAppearLuigi__12FileSelectorCFl + 0x30, ::File::isUserFileAppearLuigi);
 
+extern kmSymbol startScene__20GameSequenceProgressFv;
+kmCall(&startScene__20GameSequenceProgressFv + 0x10C, ::Player::isPlayerSwingPermission);
+
 extern kmSymbol createSky__12FileSelectorFv;
 kmWrite16(&createSky__12FileSelectorFv + 0x16, sizeof(ExtFileSelectSky));
 
@@ -213,6 +217,3 @@ extern kmSymbol exeWait__13FileSelectSkyFv;
 kmWrite32(&exeWait__13FileSelectSkyFv + 0x24, PPC_MR(3, 30)); // mr r3, r30
 kmCall(&exeWait__13FileSelectSkyFv + 0x28, ::Sky::startFileSelectAnim);
 kmWrite32(&exeWait__13FileSelectSkyFv + 0x2C, PPC_B(0x18));
-
-extern kmSymbol startScene__20GameSequenceProgressFv;
-kmCall(&startScene__20GameSequenceProgressFv + 0x10C, ::Player::isPlayerSwingPermission);
